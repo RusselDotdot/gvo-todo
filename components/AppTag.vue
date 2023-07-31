@@ -5,10 +5,11 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'nuxt-property-decorator';
     import { Tag } from '../interfaces/app'
+    import { TagDefault } from '../defaults/object'
 
     @Component
     export default class AppTag extends Vue {
-        @Prop() tag!: Tag
+        @Prop({ default: TagDefault }) tag!: Tag
     }
 </script>
 
@@ -17,10 +18,10 @@
       color: #FFFFFF;
       background: #A1AF2F;
       border-radius: 10px;
-      width: 49px;
-      height: 18px;
+      padding: 0 6px;
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 10px;
   }
 </style>

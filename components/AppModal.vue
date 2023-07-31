@@ -55,13 +55,14 @@
 <script lang="ts">
     import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
     import { Tag, Task } from '../interfaces/app'
+    import { TaskDefault, TagDefault } from '../defaults/object'
 
     @Component
     export default class AppModal extends Vue {
-        @Prop() value!: string
-        @Prop() tags!: Tag[]
-        @Prop() position!: number
-        @Prop() tasks!: Task[]
+        @Prop({default:'Button Value'}) value!: string
+        @Prop({default: [TagDefault]}) tags!: Tag[]
+        @Prop({default: 1}) position!: number
+        @Prop({default: [TaskDefault]}) tasks!: Task[]
 
         visible:boolean = false
         selectedTags:Tag[] = []

@@ -14,13 +14,14 @@
 <script lang="ts">
     import { Component, Vue, Prop } from 'nuxt-property-decorator';
     import { Task } from '../interfaces/app'
+    import { TaskDefault } from '../defaults/object'
 
     @Component
     export default class AppBoard extends Vue {
-        @Prop() title!: string
-        @Prop() tasks!: Task[]
-        @Prop() position!: number
-        @Prop() filterLength!: number
+        @Prop({default: 'Board Title'}) title!: string
+        @Prop({default: [TaskDefault]}) tasks!: Task[]
+        @Prop({default: 1}) position!: number
+        @Prop({default: 0}) filterLength!: number
 
         get newTasks():Task[] {
             const newTasks = this.tasks.filter((task) => {
@@ -43,7 +44,6 @@
         }
 
         onBoardDrop(event:any, dropPos:number):void {
-            console.log("board drop")
             const taskTitle = event.dataTransfer.getData('taskTitle')
             this.tasks.forEach((task, index) => {
                 if(task.title == taskTitle) {
@@ -54,7 +54,6 @@
         }
 
         onTaskDrop(params:any):void {
-          console.log("task drop")
           params.event.stopPropagation();
             const taskTitle = params.event.dataTransfer.getData('taskTitle')
             this.tasks.forEach((task, index) => {

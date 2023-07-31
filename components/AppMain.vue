@@ -2,24 +2,24 @@
     <div class="main">
         <AppFilter :tags="tags" @filter-tasks="filterTasks"/>
         <div class="board-container">
-            <AppBoard title="未対応" :tasks="taskProp" :position="positions[0]" :filterLength="filterLength" @reorder-tasks="reOrderTask">
+            <AppBoard title="未対応" :tasks="taskProp" :position="first_pos" :filterLength="filterLength" @reorder-tasks="reOrderTask">
                 <template v-slot:modal>
-                    <AppModal value="課題の追加..." :tags="tags" @create-tag="createTag" @create-task="createTask" :position="positions[0]" :tasks="tasks"/>
+                    <AppModal value="課題の追加..." :tags="tags" @create-tag="createTag" @create-task="createTask" :position="first_pos" :tasks="tasks"/>
                 </template>
             </AppBoard>
-            <AppBoard title="処理中" :tasks="taskProp" :position="positions[1]" :filterLength="filterLength" @reorder-tasks="reOrderTask">
+            <AppBoard title="処理中" :tasks="taskProp" :position="second_pos" :filterLength="filterLength" @reorder-tasks="reOrderTask">
                 <template v-slot:modal>
-                    <AppModal value="課題の追加..." :tags="tags" @create-tag="createTag" @create-task="createTask" :position="positions[1]" :tasks="tasks"/>
+                    <AppModal value="課題の追加..." :tags="tags" @create-tag="createTag" @create-task="createTask" :position="second_pos" :tasks="tasks"/>
                 </template>
             </AppBoard>
-            <AppBoard title="レビュー中" :tasks="taskProp"  :position="positions[2]" :filterLength="filterLength" @reorder-tasks="reOrderTask">
+            <AppBoard title="レビュー中" :tasks="taskProp"  :position="third_pos" :filterLength="filterLength" @reorder-tasks="reOrderTask">
                 <template v-slot:modal>
-                    <AppModal value="課題の追加..." :tags="tags" @create-tag="createTag" @create-task="createTask" :position="positions[2]" :tasks="tasks"/>
+                    <AppModal value="課題の追加..." :tags="tags" @create-tag="createTag" @create-task="createTask" :position="third_pos" :tasks="tasks"/>
                 </template>
             </AppBoard>
-            <AppBoard title="完了" :tasks="taskProp" :position="positions[3]" :filterLength="filterLength" @reorder-tasks="reOrderTask">
+            <AppBoard title="完了" :tasks="taskProp" :position="fourth_pos" :filterLength="filterLength" @reorder-tasks="reOrderTask">
                 <template v-slot:modal>
-                    <AppModal value="課題の追加..." :tags="tags" @create-tag="createTag" @create-task="createTask" :position="positions[3]" :tasks="tasks"/>
+                    <AppModal value="課題の追加..." :tags="tags" @create-tag="createTag" @create-task="createTask" :position="fourth_pos" :tasks="tasks"/>
                 </template>
             </AppBoard>
         </div>
@@ -37,6 +37,10 @@
         filteredTask:Task[] = []
         filterLength:number = 0
         positions:number[] = [1, 2, 3, 4]
+        first_pos = this.positions[0]
+        second_pos = this.positions[1]
+        third_pos = this.positions[2]
+        fourth_pos = this.positions[3]
 
         @Watch('tags')
         onTagsChanged(newVal:Tag[]):void {

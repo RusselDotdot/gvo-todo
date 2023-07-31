@@ -20,16 +20,18 @@
 <script lang="ts">
     import { Component, Vue, Prop, Watch } from 'nuxt-property-decorator';
     import { Tag } from '../interfaces/app'
+    import { TagDefault } from '../defaults/object'
 
     @Component
     export default class AppFilter extends Vue {
-        @Prop() tags!: Tag[]
+        @Prop({default: [TagDefault]}) tags!: Tag[]
 
         filterShow:boolean = false
         searchVal:string = ''
         selectedFilter:Tag[] = []
 
         inputSearch():void {
+          setTimeout(() => {
             this.selectedFilter.forEach(item => {
                 document.querySelectorAll<HTMLInputElement>('.filter-choices').forEach(element => {
                     if(element.value == item.title) {
@@ -37,6 +39,7 @@
                     }
                 })
             })
+          }, 10)
         }
 
         toggleShow():void {
@@ -76,10 +79,16 @@
         }
 
         get filteredTags():Tag[] {
-            const filteredTags = this.tags.filter((tag) => {
-                return tag.title.includes(this.searchVal)
-            })
-            return filteredTags
+          const filteredTags = this.tags.filter((tag) => {
+            const length = this.searchVal.length
+            for (let i = 0; i < length; i++) {
+              if (tag.title[i] !== this.searchVal[i]) {
+                return;
+              }
+            }
+            return tag.title
+          })
+          return filteredTags
         }
 
         @Watch('selectedFilter')
